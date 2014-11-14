@@ -5,29 +5,7 @@
  *  @generated
  */
 package org.apache.cassandra.thrift;
-/*
- * 
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- * 
- */
 
-
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.thrift.scheme.IScheme;
 import org.apache.thrift.scheme.SchemeFactory;
 import org.apache.thrift.scheme.StandardScheme;
@@ -74,6 +52,8 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
   private static final org.apache.thrift.protocol.TField SUPER_COLUMN_FIELD_DESC = new org.apache.thrift.protocol.TField("super_column", org.apache.thrift.protocol.TType.STRUCT, (short)2);
   private static final org.apache.thrift.protocol.TField COUNTER_COLUMN_FIELD_DESC = new org.apache.thrift.protocol.TField("counter_column", org.apache.thrift.protocol.TType.STRUCT, (short)3);
   private static final org.apache.thrift.protocol.TField COUNTER_SUPER_COLUMN_FIELD_DESC = new org.apache.thrift.protocol.TField("counter_super_column", org.apache.thrift.protocol.TType.STRUCT, (short)4);
+  private static final org.apache.thrift.protocol.TField QSZ_FIELD_DESC = new org.apache.thrift.protocol.TField("qsz", org.apache.thrift.protocol.TType.I64, (short)5);
+  private static final org.apache.thrift.protocol.TField MU_FIELD_DESC = new org.apache.thrift.protocol.TField("mu", org.apache.thrift.protocol.TType.I64, (short)6);
 
   private static final Map<Class<? extends IScheme>, SchemeFactory> schemes = new HashMap<Class<? extends IScheme>, SchemeFactory>();
   static {
@@ -85,13 +65,17 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
   public SuperColumn super_column; // optional
   public CounterColumn counter_column; // optional
   public CounterSuperColumn counter_super_column; // optional
+  public long qsz; // optional
+  public long mu; // optional
 
   /** The set of fields this struct contains, along with convenience methods for finding and manipulating them. */
   public enum _Fields implements org.apache.thrift.TFieldIdEnum {
     COLUMN((short)1, "column"),
     SUPER_COLUMN((short)2, "super_column"),
     COUNTER_COLUMN((short)3, "counter_column"),
-    COUNTER_SUPER_COLUMN((short)4, "counter_super_column");
+    COUNTER_SUPER_COLUMN((short)4, "counter_super_column"),
+    QSZ((short)5, "qsz"),
+    MU((short)6, "mu");
 
     private static final Map<String, _Fields> byName = new HashMap<String, _Fields>();
 
@@ -114,6 +98,10 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
           return COUNTER_COLUMN;
         case 4: // COUNTER_SUPER_COLUMN
           return COUNTER_SUPER_COLUMN;
+        case 5: // QSZ
+          return QSZ;
+        case 6: // MU
+          return MU;
         default:
           return null;
       }
@@ -154,7 +142,10 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
   }
 
   // isset id assignments
-  private _Fields optionals[] = {_Fields.COLUMN,_Fields.SUPER_COLUMN,_Fields.COUNTER_COLUMN,_Fields.COUNTER_SUPER_COLUMN};
+  private static final int __QSZ_ISSET_ID = 0;
+  private static final int __MU_ISSET_ID = 1;
+  private byte __isset_bitfield = 0;
+  private _Fields optionals[] = {_Fields.COLUMN,_Fields.SUPER_COLUMN,_Fields.COUNTER_COLUMN,_Fields.COUNTER_SUPER_COLUMN,_Fields.QSZ,_Fields.MU};
   public static final Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> metaDataMap;
   static {
     Map<_Fields, org.apache.thrift.meta_data.FieldMetaData> tmpMap = new EnumMap<_Fields, org.apache.thrift.meta_data.FieldMetaData>(_Fields.class);
@@ -166,6 +157,10 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
         new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, CounterColumn.class)));
     tmpMap.put(_Fields.COUNTER_SUPER_COLUMN, new org.apache.thrift.meta_data.FieldMetaData("counter_super_column", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
         new org.apache.thrift.meta_data.StructMetaData(org.apache.thrift.protocol.TType.STRUCT, CounterSuperColumn.class)));
+    tmpMap.put(_Fields.QSZ, new org.apache.thrift.meta_data.FieldMetaData("qsz", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
+    tmpMap.put(_Fields.MU, new org.apache.thrift.meta_data.FieldMetaData("mu", org.apache.thrift.TFieldRequirementType.OPTIONAL, 
+        new org.apache.thrift.meta_data.FieldValueMetaData(org.apache.thrift.protocol.TType.I64)));
     metaDataMap = Collections.unmodifiableMap(tmpMap);
     org.apache.thrift.meta_data.FieldMetaData.addStructMetaDataMap(ColumnOrSuperColumn.class, metaDataMap);
   }
@@ -177,6 +172,7 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
    * Performs a deep copy on <i>other</i>.
    */
   public ColumnOrSuperColumn(ColumnOrSuperColumn other) {
+    __isset_bitfield = other.__isset_bitfield;
     if (other.isSetColumn()) {
       this.column = new Column(other.column);
     }
@@ -189,6 +185,8 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
     if (other.isSetCounter_super_column()) {
       this.counter_super_column = new CounterSuperColumn(other.counter_super_column);
     }
+    this.qsz = other.qsz;
+    this.mu = other.mu;
   }
 
   public ColumnOrSuperColumn deepCopy() {
@@ -201,6 +199,10 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
     this.super_column = null;
     this.counter_column = null;
     this.counter_super_column = null;
+    setQszIsSet(false);
+    this.qsz = 0;
+    setMuIsSet(false);
+    this.mu = 0;
   }
 
   public Column getColumn() {
@@ -299,6 +301,52 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
     }
   }
 
+  public long getQsz() {
+    return this.qsz;
+  }
+
+  public ColumnOrSuperColumn setQsz(long qsz) {
+    this.qsz = qsz;
+    setQszIsSet(true);
+    return this;
+  }
+
+  public void unsetQsz() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __QSZ_ISSET_ID);
+  }
+
+  /** Returns true if field qsz is set (has been assigned a value) and false otherwise */
+  public boolean isSetQsz() {
+    return EncodingUtils.testBit(__isset_bitfield, __QSZ_ISSET_ID);
+  }
+
+  public void setQszIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __QSZ_ISSET_ID, value);
+  }
+
+  public long getMu() {
+    return this.mu;
+  }
+
+  public ColumnOrSuperColumn setMu(long mu) {
+    this.mu = mu;
+    setMuIsSet(true);
+    return this;
+  }
+
+  public void unsetMu() {
+    __isset_bitfield = EncodingUtils.clearBit(__isset_bitfield, __MU_ISSET_ID);
+  }
+
+  /** Returns true if field mu is set (has been assigned a value) and false otherwise */
+  public boolean isSetMu() {
+    return EncodingUtils.testBit(__isset_bitfield, __MU_ISSET_ID);
+  }
+
+  public void setMuIsSet(boolean value) {
+    __isset_bitfield = EncodingUtils.setBit(__isset_bitfield, __MU_ISSET_ID, value);
+  }
+
   public void setFieldValue(_Fields field, Object value) {
     switch (field) {
     case COLUMN:
@@ -333,6 +381,22 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
       }
       break;
 
+    case QSZ:
+      if (value == null) {
+        unsetQsz();
+      } else {
+        setQsz((Long)value);
+      }
+      break;
+
+    case MU:
+      if (value == null) {
+        unsetMu();
+      } else {
+        setMu((Long)value);
+      }
+      break;
+
     }
   }
 
@@ -349,6 +413,12 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
 
     case COUNTER_SUPER_COLUMN:
       return getCounter_super_column();
+
+    case QSZ:
+      return Long.valueOf(getQsz());
+
+    case MU:
+      return Long.valueOf(getMu());
 
     }
     throw new IllegalStateException();
@@ -369,6 +439,10 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
       return isSetCounter_column();
     case COUNTER_SUPER_COLUMN:
       return isSetCounter_super_column();
+    case QSZ:
+      return isSetQsz();
+    case MU:
+      return isSetMu();
     }
     throw new IllegalStateException();
   }
@@ -422,34 +496,30 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
         return false;
     }
 
+    boolean this_present_qsz = true && this.isSetQsz();
+    boolean that_present_qsz = true && that.isSetQsz();
+    if (this_present_qsz || that_present_qsz) {
+      if (!(this_present_qsz && that_present_qsz))
+        return false;
+      if (this.qsz != that.qsz)
+        return false;
+    }
+
+    boolean this_present_mu = true && this.isSetMu();
+    boolean that_present_mu = true && that.isSetMu();
+    if (this_present_mu || that_present_mu) {
+      if (!(this_present_mu && that_present_mu))
+        return false;
+      if (this.mu != that.mu)
+        return false;
+    }
+
     return true;
   }
 
   @Override
   public int hashCode() {
-    HashCodeBuilder builder = new HashCodeBuilder();
-
-    boolean present_column = true && (isSetColumn());
-    builder.append(present_column);
-    if (present_column)
-      builder.append(column);
-
-    boolean present_super_column = true && (isSetSuper_column());
-    builder.append(present_super_column);
-    if (present_super_column)
-      builder.append(super_column);
-
-    boolean present_counter_column = true && (isSetCounter_column());
-    builder.append(present_counter_column);
-    if (present_counter_column)
-      builder.append(counter_column);
-
-    boolean present_counter_super_column = true && (isSetCounter_super_column());
-    builder.append(present_counter_super_column);
-    if (present_counter_super_column)
-      builder.append(counter_super_column);
-
-    return builder.toHashCode();
+    return 0;
   }
 
   public int compareTo(ColumnOrSuperColumn other) {
@@ -496,6 +566,26 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
     }
     if (isSetCounter_super_column()) {
       lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.counter_super_column, typedOther.counter_super_column);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetQsz()).compareTo(typedOther.isSetQsz());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetQsz()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.qsz, typedOther.qsz);
+      if (lastComparison != 0) {
+        return lastComparison;
+      }
+    }
+    lastComparison = Boolean.valueOf(isSetMu()).compareTo(typedOther.isSetMu());
+    if (lastComparison != 0) {
+      return lastComparison;
+    }
+    if (isSetMu()) {
+      lastComparison = org.apache.thrift.TBaseHelper.compareTo(this.mu, typedOther.mu);
       if (lastComparison != 0) {
         return lastComparison;
       }
@@ -559,6 +649,18 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
       }
       first = false;
     }
+    if (isSetQsz()) {
+      if (!first) sb.append(", ");
+      sb.append("qsz:");
+      sb.append(this.qsz);
+      first = false;
+    }
+    if (isSetMu()) {
+      if (!first) sb.append(", ");
+      sb.append("mu:");
+      sb.append(this.mu);
+      first = false;
+    }
     sb.append(")");
     return sb.toString();
   }
@@ -590,6 +692,8 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
 
   private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
     try {
+      // it doesn't seem like you should have to do this, but java serialization is wacky, and doesn't call the default constructor.
+      __isset_bitfield = 0;
       read(new org.apache.thrift.protocol.TCompactProtocol(new org.apache.thrift.transport.TIOStreamTransport(in)));
     } catch (org.apache.thrift.TException te) {
       throw new java.io.IOException(te);
@@ -650,6 +754,22 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
               org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
             }
             break;
+          case 5: // QSZ
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.qsz = iprot.readI64();
+              struct.setQszIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
+          case 6: // MU
+            if (schemeField.type == org.apache.thrift.protocol.TType.I64) {
+              struct.mu = iprot.readI64();
+              struct.setMuIsSet(true);
+            } else { 
+              org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
+            }
+            break;
           default:
             org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);
         }
@@ -693,6 +813,16 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
           oprot.writeFieldEnd();
         }
       }
+      if (struct.isSetQsz()) {
+        oprot.writeFieldBegin(QSZ_FIELD_DESC);
+        oprot.writeI64(struct.qsz);
+        oprot.writeFieldEnd();
+      }
+      if (struct.isSetMu()) {
+        oprot.writeFieldBegin(MU_FIELD_DESC);
+        oprot.writeI64(struct.mu);
+        oprot.writeFieldEnd();
+      }
       oprot.writeFieldStop();
       oprot.writeStructEnd();
     }
@@ -723,7 +853,13 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
       if (struct.isSetCounter_super_column()) {
         optionals.set(3);
       }
-      oprot.writeBitSet(optionals, 4);
+      if (struct.isSetQsz()) {
+        optionals.set(4);
+      }
+      if (struct.isSetMu()) {
+        optionals.set(5);
+      }
+      oprot.writeBitSet(optionals, 6);
       if (struct.isSetColumn()) {
         struct.column.write(oprot);
       }
@@ -736,12 +872,18 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
       if (struct.isSetCounter_super_column()) {
         struct.counter_super_column.write(oprot);
       }
+      if (struct.isSetQsz()) {
+        oprot.writeI64(struct.qsz);
+      }
+      if (struct.isSetMu()) {
+        oprot.writeI64(struct.mu);
+      }
     }
 
     @Override
     public void read(org.apache.thrift.protocol.TProtocol prot, ColumnOrSuperColumn struct) throws org.apache.thrift.TException {
       TTupleProtocol iprot = (TTupleProtocol) prot;
-      BitSet incoming = iprot.readBitSet(4);
+      BitSet incoming = iprot.readBitSet(6);
       if (incoming.get(0)) {
         struct.column = new Column();
         struct.column.read(iprot);
@@ -761,6 +903,14 @@ public class ColumnOrSuperColumn implements org.apache.thrift.TBase<ColumnOrSupe
         struct.counter_super_column = new CounterSuperColumn();
         struct.counter_super_column.read(iprot);
         struct.setCounter_super_columnIsSet(true);
+      }
+      if (incoming.get(4)) {
+        struct.qsz = iprot.readI64();
+        struct.setQszIsSet(true);
+      }
+      if (incoming.get(5)) {
+        struct.mu = iprot.readI64();
+        struct.setMuIsSet(true);
       }
     }
   }

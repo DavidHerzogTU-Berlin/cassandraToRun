@@ -305,12 +305,19 @@ public class CassandraServer implements Cassandra.Iface
             logger.debug("get_slice");
         }
 
+         
         try
         {
             ClientState cState = state();
             String keyspace = cState.getKeyspace();
             state().hasColumnFamilyAccess(keyspace, column_parent.column_family, Permission.SELECT);
-            return getSliceInternal(keyspace, key, column_parent, System.currentTimeMillis(), predicate, consistency_level);
+
+            List<ColumnOrSuperColumn> superColList = getSliceInternal(keyspace, key, column_parent,
+                                                    System.currentTimeMillis(), predicate, consistency_level);
+            superColList.get(0).setQsz(10);
+            superColList.get(0).setMu(12) ;
+            System.out.println("QszSetTo 10, MUsetTo 12");
+            return superColList;
         }
         catch (RequestValidationException e)
         {
